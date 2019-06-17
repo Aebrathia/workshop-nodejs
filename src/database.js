@@ -19,4 +19,14 @@ const database = {
     clients: [],
 };
 
-module.exports = database;
+exports.get = resource => database[resource];
+exports.getOne = (resource, id) => database[resource].filter(r => r.id === id)[0];
+exports.create = (resource, data) => {
+    const id = database[resource].length + 1;
+    const newResource = {
+        id,
+        ...data,
+    };
+    database[resource].push(newResource);
+    return newResource;
+};
